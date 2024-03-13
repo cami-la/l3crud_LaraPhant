@@ -7,12 +7,12 @@ use App\Models\Customer;
 
 class CreateCustomer extends Component
 {
-    public $name = '';
-    public $email = '';
-    public $phone = '';
+	public $name = '';
+	public $email = '';
+	public $phone = '';
 
 
-    /*public function updatedEmail()
+	/*public function updatedEmail()
     {
         $existingEmail = Customer::where('email', $this->email)->count();
         if ($existingEmail > 0) {
@@ -20,14 +20,14 @@ class CreateCustomer extends Component
         }
     }*/
 
-    public function save()
-    {
-        $validatedData = $this->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|unique:customers|email|max:255',
-            'phone' => 'required|unique:customers|max:255'
-        ]);
-        /*$this->validate([
+	public function save()
+	{
+		$validatedData = $this->validate([
+			'name' => 'required|max:255',
+			'email' => 'required|unique:customers|email|max:255',
+			'phone' => 'required|unique:customers|max:255'
+		]);
+		/*$this->validate([
             'name' => 'required|max:255',
             'phone' => 'required|unique:customers'
         ]);
@@ -45,11 +45,13 @@ class CreateCustomer extends Component
             'phone' => $this->phone
         ]);*/
 
-        Customer::created($validatedData);
-    }
+		Customer::created($validatedData);
+		session()->flash('success', 'Customer successfully created.');
+		return $this->redirect('/customers');
+	}
 
-    public function render()
-    {
-        return view('livewire.create-customer');
-    }
+	public function render()
+	{
+		return view('livewire.create-customer');
+	}
 }

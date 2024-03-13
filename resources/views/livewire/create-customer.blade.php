@@ -26,7 +26,8 @@
       <div>
         @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button wire:navigate href="/customers" class="btn btn-secondary btn-sm">Back</button>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
     </form>
   </div>
 </div>

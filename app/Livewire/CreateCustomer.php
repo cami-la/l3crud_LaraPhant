@@ -45,7 +45,7 @@ class CreateCustomer extends Component
             'phone' => $this->phone
         ]);*/
 
-		Customer::created($validatedData);
+		Customer::create($validatedData);
 		session()->flash('success', 'Customer successfully created.');
 		return $this->redirect('/customers');
 	}

@@ -5,10 +5,14 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class Customers extends Component
 {
-	public $customers = [];
+	use WithPagination;
+
+	protected $paginationTheme = 'bootstrap';
+	//public $customers = [];
 	public $search = '';
 
 	/*
@@ -30,11 +34,13 @@ class Customers extends Component
 	{
 		//dd(Auth::user()->name);
 		if ($this->search != '') {
-			$this->customers = Customer::where('name', 'like', '%' . $this->search . '%')->get();
+			$customers = Customer::where('name', 'like', '%' . $this->search . '%')->get()->paginate(10);
 		} else {
-			$this->customers = Customer::all();
+			$customers = Customer::paginate(10);
 		}
 
-		return view('livewire.customers');
+		return view('livewire.customers', [
+			'customers' => $customers
+		]);
 	}
 }
